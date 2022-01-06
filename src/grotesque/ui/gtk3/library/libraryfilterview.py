@@ -57,7 +57,7 @@ class LibraryFilterView(Gtk.TreeView):
             'Tag': self.library.tag_store}.get(
                 type_text)
         # Sort the contents of the model
-        self.sorted_model = Gtk.TreeModel.sort_new_with_model(
+        self.sorted_model = Gtk.TreeModelSort.new_with_model(
             self.filter_model)
         self.sorted_model.set_sort_func(0, self._sort, type_text)
         self.set_model(self.sorted_model)
@@ -127,7 +127,7 @@ class LibraryFilterView(Gtk.TreeView):
             self._filter_visible, (filter_type, filter_text, filter_id,
                                    filter_col))
         self.filter_model.refilter()
-        sortable_filter_model = Gtk.TreeModel.sort_new_with_model(
+        sortable_filter_model = Gtk.TreeModelSort.new_with_model(
             self.filter_model)
         sortable_filter_model.connect("sort-column-changed",
                                       self.on_library_sort_column_changed)
