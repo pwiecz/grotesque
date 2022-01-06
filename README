@@ -1,0 +1,120 @@
+# -*- org -*-
+# README
+#
+# Copyright (C) 2011, 2012, 2014, 2015 Brandon Invergo <brandon@invergo.net>
+#
+# Author: Brandon Invergo <brandon@invergo.net>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 3
+# of the License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+#+TITLE: Grotesque
+
+* About 
+
+Grotesque is a program for organizing and exploring your interactive fiction
+library. 
+
+Grotesque is copyright 2009, 2010 Per Liedman and 2011, 2012, 2014
+Brandon Invergo.  See the file COPYING for licensing information.
+
+* Requirements
+
+Python 2 (>= 2.6)  (Python 3 is currently not supported)
+GTK 3:
+pygobject (aka python-gobject)
+
+* Installation 
+
+In a terminal, simply type 
+
+    $ python setup.py install
+
+Note that you may need root priveledges to install. If you wish to
+install it yourself manually, you may instead type:
+
+    $ python setup.py build 
+
+Then copy the contents of the src directory to somewhere in your
+PYTHON_PATH.  The file grotesque may be used to launch the
+application.
+
+For installing it in your desktop environment (ie GNOME), there is an
+application icon in the directory src/grotesque/data.
+
+* How to use Grotesque 
+
+Grotesque is an interactive fiction library manager. This, of course,
+means that you need some interactive fiction to get started. Hop over
+to http://ifdb.tads.org to find some good ones. You'll also need some
+interpreters to read the interactive fiction files, as Grotesque does
+not handle that directly. For GNU/Linux, Gargoyle
+(http://ccxvii.net/gargoyle/) can handle most formats.
+
+Use of Grotesque is pretty straight-forward. If this is your first
+time running it, it will walk you through setting up your preferred
+interpreters. Once you're in the program you can import stories into
+your library by clicking on the folder icon (recursively import a
+directory) or on the '+' icon (import file(s) from a directory).
+
+Grotesque will attempt to extract metadata from the story files,
+however in the event that it fails, it will retrieve the information
+from IFDB. Likewise, the program can also retrieve cover art from
+IFDB. This feature can be turned off in the preferences.
+
+If you have used a previous version of Grotesque, your library may
+need updating, which the program will do the first time you run the
+new version.  Since this version stores more metadata for each story
+than previous versions, it will also optionally fetch more data from
+IFDB. This process may take some time with larger libraries so please
+be patient!
+
+You can filter your library by such things as author or publishing
+date using the filter list on the left. In the main library list, you
+can sort according to any of the columns. If you start typing, you can
+search for a particular title (you may need to click somewhere on the
+list first). If you right click on the column headers (in GTK3) or on
+the list itself (in GTK2), you'll find a pop-up menu which allows you
+to show/hide columns. Double-clicking a story, hitting enter while
+it's selected, or hitting the play button while it's selected will
+launch a story. It will change from being in bold text to having a
+normal weight to indicate that you've tried this story (handy for big
+libraries or for junkies who download stories faster than they can
+complete them). Right-clicking on the list itself (both GTK2 and GTK3)
+will allow you to toggle the played state of a game directly.
+
+* Bugs & Feature Requests
+
+Grotesque is currently beta software. While it can probably be
+considered close to "feature-complete", it may still be a few bugs
+short of a 1.0. If you happen to encounter one or if you have a great
+idea of how to improve the application, please visit
+http://grotesque.invergo.net/ and either leave a bug report or drop a
+note in http://intfiction.org/forum, and we'll see what we can do.
+For bug reports, please include as much of the fololwing information
+as you can:
+
+- Operating system & version
+- Python version
+- Grotesque version
+- GTK version installed on your system
+- pygobject version
+
+* Development
+
+If you would like to help out with development, you're more than
+welcome! Please contact me in that case.
+
+* Contact
+
+Brandon Invergo <brandon@invergo.net>

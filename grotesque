@@ -1,0 +1,103 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+#
+#       main.py
+#       
+#       Copyright © 2011, 2014, 2017, 2018 Brandon Invergo <brandon@invergo.net>
+#       Copyright © 2009, 2010 Per Liedman <per@liedman.net>
+#       
+#       This file is part of Grotesque.
+#
+#       Grotesque is free software: you can redistribute it and/or modify
+#       it under the terms of the GNU General Public License as published by
+#       the Free Software Foundation, either version 3 of the License, or
+#       (at your option) any later version.
+#
+#       Grotesque is distributed in the hope that it will be useful,
+#       but WITHOUT ANY WARRANTY; without even the implied warranty of
+#       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#       GNU General Public License for more details.
+#
+#       You should have received a copy of the GNU General Public License
+#       along with Grotesque.  If not, see <http://www.gnu.org/licenses/>.
+
+
+__author__ = "Brandon Invergo and Per Liedman"
+__copyright__ = ["Copyright 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018 Brandon Invergo\n"
+                  "Copyright 2009, 2010 Per Liedman"]
+__credits__ = ["Brandon Invergo", "Per Liedman"]
+__license__ = "GPLv3+"
+__version__ = "0.10"
+__maintainer__ = "Brandon Invergo"
+__email__ = "brandon@invergo.net"
+__status__ = "Development"
+
+
+import sys
+import os
+import errno
+import sqlite3
+import locale
+
+try:
+    import gi
+    gi.require_version('Gtk', '3.0')
+    gi.require_version('GIRepository', '2.0')
+except:
+    import sys
+    d = Gtk.MessageDialog(self, Gtk.DialogFlags.MODAL,
+                          Gtk.MessageType.ERROR,
+                          Gtk.ButtonsType.CLOSE)
+    d.set_markup('Grotesque requires GTK+ version 3.0 or higher and '
+                 'python-gobject.')
+    restore_response = d.run()
+    d.destroy()
+    sys.exit()    
+from gi.repository import Gtk
+from grotesque.ui.gtk3 import Gui
+from grotesque.settings import Settings
+from grotesque import db
+
+
+def main():
+    locale.setlocale(locale.LC_ALL, '')
+    # If this is the first time running the program, the settings file won't
+    # exist, so run the settings assistant.
+    gui = Gui()
+    settings = Settings()
+    if not settings.load():
+        gui.setup_assistant(settings)
+        if not os.path.exists(settings.configdir):
+            os.makedirs(settings.configdir)
+        settings.save()
+    library_filename = settings.get_library_filename()
+    # Connect to the db
+    if not os.path.exists(library_filename):
+        if not os.path.exists(settings.datadir):
+            os.makedirs(settings.datadir)
+        conn = db.connect(library_filename)
+        db.create_tables(conn)
+        db.set_up_db(conn, __version__)
+    else:
+        conn = db.connect(library_filename)
+        try:
+            db_version = db.query.get_db_version(conn)
+        except sqlite3.DatabaseError:
+            d = Gtk.MessageDialog(None, Gtk.DialogFlags.MODAL,
+                                  Gtk.MessageType.WARNING,
+                                  Gtk.ButtonsType.OK)
+            d.set_markup("Grotesque\'s database file ({0}) is not "
+                         "readable. Please delete it and relaunch the "
+                         "program".format(library_filename))
+            d.run()
+            d.destroy()
+            Gtk.main_quit()
+            sys.exit()
+        if db_version != __version__:
+            # TODO: add database updates here
+            db.query.set_db_version(conn, __version__)
+    gui.main_window(conn, settings)
+
+
+if __name__ == "__main__":
+    main()

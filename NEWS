@@ -1,0 +1,102 @@
+# -*- org -*-
+
+# NEWS
+
+# Copyright (C) 2014, 2015 Brandon Invergo <brandon@invergo.net>
+
+# Author: Brandon Invergo <brandon@invergo.net>
+
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 3
+# of the License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+
+* Version 0.9.5
+
+This is a bugfix release.
+
+** Hard dependency on the gnome icon theme removed
+
+Grotesque should now be more general in its usage of system icons.
+
+** Default window size increased
+
+The default window size was too small, resulting in elements of the
+user interface being truncated when first running the program.
+
+* Version 0.9.4
+
+This is a general bugfix release.  Many changes were made simply to
+ease future developments.
+
+** Grotesque now depends on pyifbabel
+
+The library handling the Treaty of Babel functionality is now being
+provided independently as pyifbabel.  It must be installed to use
+Grotesque.  You can find it at http://pyifbabel.invergo.net
+
+** Support for GTK+ 2 dropped
+
+Grotesque now only supports GTK+ 3.  While this is unfortunate,
+retaining support for both versions proved unfeasible.
+
+** Several GTK-related bugs were fixed
+
+Grotesque was sadly out-of-date with respect to developments in the
+GTK+ library.  Several fixes were implemented to bring the program
+up-to-date, to prevent crashes and to avoid warnings.
+
+** Library import/export added
+
+In anticipation of major upcoming structural changes to Grotesque,
+library import/export to IFiction has been (re-)implemented.
+Exporting the library retains all of the changes you've made,
+including ratings and played status.
+
+** Story file names are now editable
+
+In the "Edit" dialog, you can now manually set/change the location of
+the story file.
+
+** Basic HTML in story metadata is parsed
+
+Some metadata imported from IFDB will occasionally have HTML tags in
+it.  Grotesque will now parse basic text-formatting tags and will
+apply the appropriate formatting.
+
+* Version 0.9.3
+** Fixed IFID extraction/computation in TADS and ZCODE games
+** Fixed IFID extraction/computation and metadata extraction from blorbed files
+** Added IFID computation for AGT, Alan, DOS executable, Hugo, Level 9 and Magnetic Scrolls story formats
+** Added coverart extraction for TADS and blorbed story formats
+** Added support for local coverart (cover art stored in the same folder as the story file, which must have the word "cover" somewhere in its name and be a JPEG or PNG image)
+** Added a field for story TUID and the ability to search the IFDB by TUID in the edit dialog
+** Removed Python 2.7 dependencies (2.6 is now the required version)
+** Fixed bug in improper clearing of filter values when removing stories from the library
+** Fixed wonky progress dialog behavior when handling large file names
+** Fixed a bug in which editing a story's genre or authors resulted in spurious filter values
+** Fixed a bug in which edits made via searching IFDB didn't appear in the library list.
+** Fixed a bug in zeroes being ommited from custom format file extensions.
+** Fixed the install location of the README and COPYING documents on Linux
+** Changed the default location of the configuration files in Linux
+
+They're now in $XDG_CONFIG_HOME/grotesque, which defaults to
+/home/<user>/.config/grotesque if the environment variable is not set,
+and the data files to $XDG_DATA_HOME/grotesque, or
+/home/<user>/.local/share/grotesque
+  
+!!NOTE!! 
+Linux users, pay attention to that last one. You must manually move
+~/.grotesque/grotesque.cfg to $XDG_CONFIG_HOME/grotesque and you must move
+local_library.dat and the covers folder to $XDG_DATA_HOME.
+I could have done this automatically but I do not like the idea of moving
+files around in your home directory without you knowing.
