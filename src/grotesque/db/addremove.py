@@ -327,7 +327,7 @@ def add_story_meta(conn, file_ifid, ific_story, ific_source):
     '''
     biblio = ifiction.get_bibliographic(ific_story)
     ident = ifiction.get_identification(ific_story)
-    contact = ifiction.get_contacts(ific_story)
+    contact = ifiction.get_contact(ific_story)
     story_row = query.select_story_by_title(
         conn, biblio["title"])
     if story_row:
